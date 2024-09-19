@@ -75,7 +75,7 @@ def download_font(url:str):
         
 def get_name():
     global URL_FONT
-    name = URL_FONT.split("/")[-1]
+    name = URL_FONT.split("/")[-1].split("#")[0]
     return name.replace("-"," ").title()
 with sync_playwright() as p:
     run(p)
