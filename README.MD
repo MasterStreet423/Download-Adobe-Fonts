@@ -37,7 +37,7 @@ Storing the fonts locally in a fonts/ directory.
 ## Usage
 Run the script:
 ```bash
-python adobe_font_scraper.py
+python adobe_font_scrapper.py
 ```
 Input either the direct URL of the Adobe Fonts page or the font name.
 
