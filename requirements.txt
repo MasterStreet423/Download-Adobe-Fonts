@@ -1,6 +1,6 @@
 certifi==2024.8.30
 charset-normalizer==3.3.2
-fonttools==4.53.1
+fontTools==4.53.1
 greenlet==3.0.3
 idna==3.10
 playwright==1.47.0
