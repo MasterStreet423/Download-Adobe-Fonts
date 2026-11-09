@@ -8,16 +8,10 @@ import os
 
 IMAGE_404 = "https://afwebcdn.fonts.adobe.com/assets/svg/errors/404-28b2a4bef055b0727a82efb73e4c784ecc12b0c5e15652d318e256a3af1459a1.svg"
 
-languages = {
-    "english": ("Enter the URL or name of the Adobe font: ","Downloading: "),
-    "spanish": ("Escriba la URL o el nombre de la fuente de Adobe: ","Descargando: ")
-}
-
 while True:
     try:
-        language = input("Elige un idioma (Choose a language): english/spanish\n").lower()
-        input_url_font = input(languages[language][0])
-            
+        input_url_font = input("Enter the URL or name of the Adobe font: ")
+
         if "fonts.adobe.com" in input_url_font:
             URL_FONT = input_url_font
             if not input_url_font.startswith("https://"):
@@ -47,6 +41,10 @@ while True:
                 print("Font not found")
                 return
 
+            # wait for the page's JS to render the font list and count before reading them
+            page.wait_for_selector("#fonts-section > div > div > div.adobe-fonts-family__availability-summary > span")
+            page.wait_for_function("document.querySelector('#fonts-section > div > div > div.adobe-fonts-family__availability-summary > span').innerText.trim() !== ''")
+
             list_fonts = page.query_selector_all('#fonts-section > div > ul > li .font-variation-card__variation-name')
             try:
                 font_names = [x.inner_text() for x in list_fonts]
@@ -68,7 +66,7 @@ while True:
             for x in range(font_count):
                 url = fonts[x]
                 new_number = font_names[x]
-                print(languages[language][1], new_number)
+                print("Downloading: ", new_number)
                 r = requests.get(url)
                 # font in otf
                 font = fontTools.ttLib.TTFont(io.BytesIO(r.content))
@@ -91,4 +89,4 @@ while True:
             download_font(fonts)
         break
     except KeyError:
-        print("Su entrada no es válida (Your input isn't valid)")
+        print("Your input isn't valid")
