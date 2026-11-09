@@ -16,13 +16,13 @@ Clone the repository or download the script files:
 git clone https://github.com/masterstreet423/adobe-font-scraper.git
 ```
 
-Install the required dependencies using pip:
+This project is managed with [uv](https://docs.astral.sh/uv/). Install the dependencies with:
 ```bash
-pip install -r requirements.txt
+uv sync
 ```
-Install Playwright and set up the browser environment:
+Install the Playwright browser:
 ```bash
-playwright install
+uv run playwright install chromium
 ```
 ## How It Works
 ### The script operates by:
@@ -37,7 +37,7 @@ Storing the fonts locally in a fonts/ directory.
 ## Usage
 Run the script:
 ```bash
-python adobe_font_scrapper.py
+uv run adobe_font_scrapper.py
 ```
 Input either the direct URL of the Adobe Fonts page or the font name.
 
@@ -48,13 +48,13 @@ The downloaded fonts will be saved in the fonts/ directory with proper subfolder
 ## Example
 ### Input:
 ```bash
-Escriba la URL o el nombre de la fuente de Adobe: proxima nova
+Enter the URL or name of the Adobe font: proxima nova
 ```
 ### Output:
 ```make
-Descargando: Proxima Nova Regular
-Descargando: Proxima Nova Bold
-Descargando: Proxima Nova Light
+Downloading:  Proxima Nova Regular
+Downloading:  Proxima Nova Bold
+Downloading:  Proxima Nova Light
 ...
 ```
 The fonts are stored in the following structure:
@@ -69,21 +69,18 @@ fonts/
 ## File Structure
 ```
 adobe_font_scraper/
-├── adobe_font_scraper.py       # Main script
-├── requirements.txt            # Python package dependencies
+├── adobe_font_scrapper.py      # Main script
+├── pyproject.toml              # Project metadata and dependencies (used by uv)
 └── fonts/                      # Directory where downloaded fonts will be stored
 ```
 ## Requirements
-- Python 3.7+
+- [uv](https://docs.astral.sh/uv/) to manage the project and Python
+- Python 3.14+
 - Playwright: Used to automate browser interaction.
 - FontTools: Used for manipulating fonts.
 - Requests: For making HTTP requests to download fonts.
 
-Install the requirements with:
-
-```bash
-pip install -r requirements.txt
-```
+`uv sync` installs all of these from `pyproject.toml`.
 
 ## Important Notes
 
